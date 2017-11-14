@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="235,87,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        Title="MainWindow" Height="448.488" Width="624.302" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="categoryViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Category}, CreateList=True}"/>
+        <CollectionViewSource x:Key="categoryProductsViewSource" Source="{Binding Products, Source={StaticResource categoryViewSource}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource categoryViewSource}" Margin="0,0,-8,12">
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="30,46,30,251" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="categoryIdColumn" Binding="{Binding CategoryId}" Header="Category Id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="productsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource categoryProductsViewSource}}" Margin="30,160,30,119" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="categoryIdColumn1" Binding="{Binding CategoryId}" Header="Category Id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameColumn1" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="productIdColumn" Binding="{Binding ProductId}" Header="Product Id" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="buttonSave" Content="Save" HorizontalAlignment="Left" Margin="229,315,0,0" VerticalAlignment="Top" Width="75" Click="buttonSave_Click"/>
+        <Button x:Name="buttonCleanUp" Content="Clean Up" HorizontalAlignment="Left" Margin="445,10,0,0" VerticalAlignment="Top" Width="78" Click="buttonCleanUp_Click"/>
     </Grid>
 </Window>

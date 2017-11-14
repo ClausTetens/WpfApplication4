@@ -27,7 +27,10 @@ namespace WpfApplication4 {
     }
 
 
-    public class ProductContext : DbContext {
+    public class ProductContext : DbContext{
+
+        public ProductContext():base("DefaultConnection"){ }
+        //public ProductContext() : base() { }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
     }
